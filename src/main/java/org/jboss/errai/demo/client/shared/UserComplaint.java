@@ -9,6 +9,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Version;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.databinding.client.api.Bindable;
 
@@ -30,6 +31,7 @@ public class UserComplaint {
   @Version
   private Long version;
 
+  @NotEmpty(message = "Name cannot be empty")
   private String name;
   private String email;
   private String text;

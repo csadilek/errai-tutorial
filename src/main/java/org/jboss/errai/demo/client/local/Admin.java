@@ -6,6 +6,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.validation.Validator;
 
 import org.jboss.errai.common.client.api.RemoteCallback;
 import org.jboss.errai.demo.client.shared.UserComplaint;
@@ -20,6 +21,7 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import org.slf4j.Logger;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 
 /**
@@ -54,7 +56,7 @@ public class Admin extends Composite {
   
   @Inject
   private Logger logger;
-
+  
   /**
    * Queries the list of complaints from the browser's local storage, and
    * displays the results in the {@code complaints} list widget.

@@ -1,6 +1,10 @@
 package org.jboss.errai.demo.client.local;
 
+import java.util.Set;
+
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
 import org.jboss.errai.common.client.api.Caller;
 import org.jboss.errai.demo.client.shared.UserComplaint;
@@ -118,6 +122,9 @@ public class ComplaintForm extends Composite {
   @Inject
   @DataField
   private Button takePicture;
+  
+  @Inject
+  private Validator validator;
 
   /**
    * This method is registered as an event handler for click events on the
@@ -128,6 +135,11 @@ public class ComplaintForm extends Composite {
    */
   @EventHandler("submit")
   private void onSubmit(ClickEvent e) {
+    
+    Set<ConstraintViolation<UserComplaint>> violations = validator.validate(userComplaint);
+    if (!violations.isEmpty()) {
+      Window.alert(violations.iterator().next().getMessage());
+    }
     // Execute the REST call to store the complaint on the server
     endpoint.call(new ResponseCallback() {
       @Override
